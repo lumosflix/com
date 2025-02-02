@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Requests - LumosFlix</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: white;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #e50914;
+        }
+
+        .requests-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .request-card {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .request-card h3 {
+            color: #e50914;
+            margin-bottom: 5px;
+        }
+
+        .request-card p {
+            color: #ccc;
+        }
+
+        .delete-btn {
+            background: #e50914;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .delete-btn:hover {
+            background: #b20710;
+        }
+
+        .add-request {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #e50914;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(229, 9, 20, 0.3);
+            transition: 0.3s;
+        }
+
+        .add-request:hover {
+            transform: scale(1.05);
+        }
+
+        .request-form {
+            display: none;
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+        }
+
+        .request-form.show {
+            display: block;
+            animation: bounceFadeIn 0.5s ease-out;
+        }
+
+        .request-form input,
+        .request-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            color: white;
+            border-radius: 5px;
+        }
+
+        .request-form button {
+            background: #e50914;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        @keyframes bounceFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            60% {
+                opacity: 1;
+                transform: translateY(-15px);
+            }
+            80% {
+                transform: translateY(8px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Movie Requests</h1>
+    <div class="requests-container" id="requestsContainer">
+        <!-- Requests will be dynamically added here -->
+    </div>
+
+    <button class="add-request" onclick="toggleForm()">Add Request</button>
+    <div class="request-form" id="requestForm">
+        <input type="text" id="movieName" placeholder="Movie name">
+        <textarea id="userRequest" placeholder="Your request..."></textarea>
+        <button onclick="submitRequest()">Submit</button>
+    </div>
+
+    <script>
+        // Load existing requests from localStorage
+        function loadRequests() {
+            const requestsContainer = document.getElementById('requestsContainer');
+            const requests = JSON.parse(localStorage.getItem('movieRequests')) || [];
+
+            requestsContainer.innerHTML = ''; // Clear existing content
+
+            requests.forEach((request, index) => {
+                const requestCard = document.createElement('div');
+                requestCard.className = 'request-card';
+                requestCard.innerHTML = `
+                    <div>
+                        <h3>${request.movieName}</h3>
+                        <p>${request.userRequest}</p>
+                    </div>
+                    <button class="delete-btn" onclick="deleteRequest(${index})">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+                requestsContainer.appendChild(requestCard);
+            });
+        }
+
+        // Toggle the request form
+        function toggleForm() {
+            const form = document.getElementById('requestForm');
+            form.classList.toggle('show');
+        }
+
+        // Submit a new request
+        function submitRequest() {
+            const movieName = document.getElementById('movieName').value;
+            const userRequest = document.getElementById('userRequest').value;
+
+            if (!movieName || !userRequest) {
+                alert('Please fill all fields');
+                return;
+            }
+
+            // Get existing requests or initialize an empty array
+            const requests = JSON.parse(localStorage.getItem('movieRequests')) || [];
+
+            // Add the new request
+            requests.push({ movieName, userRequest });
+
+            // Save back to localStorage
+            localStorage.setItem('movieRequests', JSON.stringify(requests));
+
+            // Reload requests
+            loadRequests();
+
+            // Clear form and hide it
+            document.getElementById('movieName').value = '';
+            document.getElementById('userRequest').value = '';
+            toggleForm();
+        }
+
+        // Delete a request
+        function deleteRequest(index) {
+            const requests = JSON.parse(localStorage.getItem('movieRequests')) || [];
+
+            // Remove the request at the specified index
+            requests.splice(index, 1);
+
+            // Save the updated list back to localStorage
+            localStorage.setItem('movieRequests', JSON.stringify(requests));
+
+            // Reload requests
+            loadRequests();
+        }
+
+        // Load requests when the page loads
+        window.onload = loadRequests;
+    </script>
+</body>
+</html>
