@@ -119,28 +119,16 @@
         }
 
         @keyframes bounceFadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            60% {
-                opacity: 1;
-                transform: translateY(-15px);
-            }
-            80% {
-                transform: translateY(8px);
-            }
-            100% {
-                transform: translateY(0);
-            }
+            0% { opacity: 0; transform: translateY(30px); }
+            60% { opacity: 1; transform: translateY(-15px); }
+            80% { transform: translateY(8px); }
+            100% { transform: translateY(0); }
         }
     </style>
 </head>
 <body>
     <h1>Movie Requests</h1>
-    <div class="requests-container" id="requestsContainer">
-        <!-- Requests will be dynamically added here -->
-    </div>
+    <div class="requests-container" id="requestsContainer"></div>
 
     <button class="add-request" onclick="toggleForm()">Add Request</button>
     <div class="request-form" id="requestForm">
@@ -149,79 +137,82 @@
         <button onclick="submitRequest()">Submit</button>
     </div>
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+
+    <!-- JavaScript Logic -->
     <script>
-        // Load existing requests from localStorage
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCd9lnenlEAmiLbXz7iIgKg0rlPo4AtsfU",
+            authDomain: "lumosflix-b8025.firebaseapp.com",
+            projectId: "lumosflix-b8025",
+            storageBucket: "lumosflix-b8025.appspot.com",
+            messagingSenderId: "559281246984",
+            appId: "1:559281246984:web:e3cc0d389229463a7312bd",
+            measurementId: "G-38XRZH9D93"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Load requests in real-time
         function loadRequests() {
             const requestsContainer = document.getElementById('requestsContainer');
-            const requests = JSON.parse(localStorage.getItem('movieRequests')) || [];
-
-            requestsContainer.innerHTML = ''; // Clear existing content
-
-            requests.forEach((request, index) => {
-                const requestCard = document.createElement('div');
-                requestCard.className = 'request-card';
-                requestCard.innerHTML = `
-                    <div>
-                        <h3>${request.movieName}</h3>
-                        <p>${request.userRequest}</p>
-                    </div>
-                    <button class="delete-btn" onclick="deleteRequest(${index})">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                `;
-                requestsContainer.appendChild(requestCard);
+            db.collection("movieRequests").orderBy("timestamp", "desc").onSnapshot(snapshot => {
+                requestsContainer.innerHTML = ''; // Clear previous content
+                snapshot.forEach(doc => {
+                    const request = doc.data();
+                    const requestCard = document.createElement('div');
+                    requestCard.className = 'request-card';
+                    requestCard.innerHTML = `
+                        <div>
+                            <h3>${request.movieName}</h3>
+                            <p>${request.userRequest}</p>
+                        </div>
+                        <button class="delete-btn" onclick="deleteRequest('${doc.id}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    `;
+                    requestsContainer.appendChild(requestCard);
+                });
             });
         }
 
-        // Toggle the request form
+        // Toggle request form
         function toggleForm() {
-            const form = document.getElementById('requestForm');
-            form.classList.toggle('show');
+            document.getElementById('requestForm').classList.toggle('show');
         }
 
         // Submit a new request
         function submitRequest() {
-            const movieName = document.getElementById('movieName').value;
-            const userRequest = document.getElementById('userRequest').value;
+            const movieName = document.getElementById('movieName').value.trim();
+            const userRequest = document.getElementById('userRequest').value.trim();
 
             if (!movieName || !userRequest) {
                 alert('Please fill all fields');
                 return;
             }
 
-            // Get existing requests or initialize an empty array
-            const requests = JSON.parse(localStorage.getItem('movieRequests')) || [];
-
-            // Add the new request
-            requests.push({ movieName, userRequest });
-
-            // Save back to localStorage
-            localStorage.setItem('movieRequests', JSON.stringify(requests));
-
-            // Reload requests
-            loadRequests();
-
-            // Clear form and hide it
-            document.getElementById('movieName').value = '';
-            document.getElementById('userRequest').value = '';
-            toggleForm();
+            db.collection("movieRequests").add({
+                movieName: movieName,
+                userRequest: userRequest,
+                timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            }).then(() => {
+                document.getElementById('movieName').value = '';
+                document.getElementById('userRequest').value = '';
+                toggleForm();
+            });
         }
 
         // Delete a request
-        function deleteRequest(index) {
-            const requests = JSON.parse(localStorage.getItem('movieRequests')) || [];
-
-            // Remove the request at the specified index
-            requests.splice(index, 1);
-
-            // Save the updated list back to localStorage
-            localStorage.setItem('movieRequests', JSON.stringify(requests));
-
-            // Reload requests
-            loadRequests();
+        function deleteRequest(requestId) {
+            db.collection("movieRequests").doc(requestId).delete();
         }
 
-        // Load requests when the page loads
+        // Load requests when page loads
         window.onload = loadRequests;
     </script>
 </body>
