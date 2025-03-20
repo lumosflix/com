@@ -20,15 +20,25 @@
         }
 
         @keyframes bounceFadeIn {
-            0% { opacity: 0; transform: translateY(30px); }
-            60% { opacity: 1; transform: translateY(-15px); }
-            80% { transform: translateY(8px); }
-            100% { transform: translateY(0); }
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            60% {
+                opacity: 1;
+                transform: translateY(-15px);
+            }
+            80% {
+                transform: translateY(8px);
+            }
+            100% {
+                transform: translateY(0);
+            }
         }
 
         header {
             background: linear-gradient(135deg, #000000 0%, #2d0a0a 100%);
-            padding: 1rem 1rem 2rem;
+            padding: 1rem;
             position: fixed;
             width: 100%;
             top: 0;
@@ -36,16 +46,15 @@
             box-shadow: 0 4px 15px rgba(229, 9, 20, 0.1);
         }
 
-        .powered-by {
+    .powered-by {
             position: absolute;
-            bottom: 20px;
+            bottom: 9px;
             left: 21%;
             transform: translateX(-50%);
             font-size: 0.7rem;
             color: #666;
             white-space: nowrap;
         }
-
         nav {
             display: flex;
             justify-content: space-between;
@@ -288,17 +297,35 @@
         }
 
         @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .search-bar { width: 150px; }
-            .movie-grid { grid-template-columns: repeat(2, 1fr); }
-            .download-btn { padding: 0.6rem 1rem; font-size: 14px; }
+            .nav-links {
+                display: none;
+            }
+
+            .search-bar {
+                width: 150px;
+            }
+
+            .movie-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .download-btn {
+                padding: 0.6rem 1rem;
+                font-size: 14px;
+            }
         }
 
         @media (max-width: 480px) {
-            .movie-grid { grid-template-columns: 1fr; }
-            .footer-content { grid-template-columns: 1fr; }
+            .movie-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
         }
 
+        /* Optimized Floating Request Tab */
         .floating-request {
             position: fixed;
             bottom: 20px;
@@ -326,83 +353,40 @@
             will-change: transform, opacity;
         }
 
-        .debyan-popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1001;
-            backdrop-filter: blur(5px);
-        }
-
-        .debyan-popup-content {
-            background: linear-gradient(135deg, #1a1a1a 0%, #2d0a0a 100%);
-            padding: 2rem;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 500px;
-            position: relative;
-            transform: scale(0.8);
-            opacity: 0;
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-
-        .popup-header {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid #e5091433;
-            padding-bottom: 1rem;
-        }
-
-        .popup-body {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .cta-btn {
-            background: linear-gradient(45deg, #e50914, #b20710);
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 30px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-top: 1rem;
-            transition: transform 0.3s;
-        }
-
-        .cta-btn:hover { transform: scale(1.05); }
-
-        .close-btn {
+        .request-btn i {
+            font-size: 1.2rem;
+            transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             position: absolute;
-            top: 1rem;
-            right: 1.5rem;
-            color: #fff;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color 0.3s;
+            top: 50%;
+            left: 50%;
+            transform: translate3d(-50%, -50%, 0);
+            opacity: 0;
         }
 
-        .close-btn:hover { color: #e50914; }
-
-        .popup-footer {
-            text-align: center;
-            color: #666;
-            font-size: 0.8rem;
+        .request-btn .request-text {
+            transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        .debyan-popup-overlay.active {
-            display: flex;
+        .request-btn.shrink {
+            transform: translate3d(0, 0, 0) scale(0.8);
+            width: 65px;
+            height: 65px;
+            padding: 0;
+            border-radius: 50%;
         }
 
-        .debyan-popup-overlay.active .debyan-popup-content {
-            transform: scale(1);
+        .request-btn.shrink i {
             opacity: 1;
+            transform: translate3d(-50%, -50%, 0) scale(1.2);
+        }
+
+        .request-btn.shrink .request-text {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+
+        .request-btn:hover {
+            transform: scale(1.05) translate3d(0, 0, 0);
         }
     </style>
 </head>
@@ -425,26 +409,34 @@
         <section class="featured-movies">
             <h2 class="section-title">Featured Movies</h2>
             <div class="movie-grid">
+              
 
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="movie-card">
+                    <img src="Lucky Baskhar.jpg" alt="Deva" class="movie-poster">
+                    <div class="movie-info">
+                        <h3>test</h3>
+                        <p>Crime, Drama, Thriller • 2024</p>
+                        <a href="https://nanolinks.in/YVrfBLQ" target="_blank">
+                            <button class="download-btn">
+                                <i class="fas fa-play"></i> Watch
+                            </button>
+                        </a>
+                    </div>
+                </div>
+
+
 
                 <div class="movie-card">
                     <img src="Lucky Baskhar.jpg" alt="Deva" class="movie-poster">
@@ -459,9 +451,11 @@
                     </div>
                 </div>
 
-                <div class="movie-card">
+
+  <div class="movie-card">
                     <img src="Sita Ramam.jpg" alt="Sita Ramam" class="movie-poster">
-                    <div class="movie-info">
+
+       <div class="movie-info">
                         <h3>Sita Ramam</h3>
                         <p>Action, Drama & Romance • 2022</p>
                         <a href="https://nanolinks.in/erZC5" target="_blank">
@@ -506,9 +500,9 @@
             <div class="footer-section">
                 <h3>LumosFlix</h3>
                 <ul>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="careers.html">Careers</a></li>
-        <li><a href="contact.html">Contact</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact</a></li>
                 </ul>
             </div>
             <div class="footer-section">
@@ -542,7 +536,6 @@
             </button>
         </a>
     </div>
-
     <div class="debyan-popup-overlay" id="debyanPopup">
         <div class="debyan-popup-content">
             <span class="close-btn">&times;</span>
@@ -558,7 +551,6 @@
             </div>
         </div>
     </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const searchBar = document.querySelector('.search-bar');
@@ -570,6 +562,7 @@
 
             searchBar.addEventListener('input', function(e) {
                 const searchTerm = e.target.value.trim().toLowerCase();
+                
                 movieCards.forEach(card => {
                     const title = card.querySelector('h3').textContent.toLowerCase();
                     card.style.display = title.includes(searchTerm) ? 'block' : 'none';
@@ -592,25 +585,119 @@
                 });
             }, { passive: true });
 
-            const popup = document.getElementById('debyanPopup');
-            const closeBtn = document.querySelector('.close-btn');
-
-            setTimeout(() => popup.classList.add('active'), 3000);
-
-            closeBtn.addEventListener('click', () => popup.classList.remove('active'));
-            popup.addEventListener('click', (e) => {
-                if(e.target === popup) popup.classList.remove('active');
-            });
-            document.addEventListener('keydown', (e) => {
-                if(e.key === 'Escape' && popup.classList.contains('active')) {
-                    popup.classList.remove('active');
-                }
-            });
-
             requestBtn.addEventListener('transitionend', () => {
                 requestBtn.style.willChange = 'auto';
             });
         });
     </script>
-</body>
-    </html>
+    <!-- Add this right before the closing </body> tag -->
+<div class="debyan-popup-overlay" id="debyanPopup">
+    <div class="debyan-popup-content">
+        <span class="close-btn">&times;</span>
+        <div class="popup-header">
+            <h3>🎉 Exclusive Offer!</h3>
+        </div>
+        <div class="popup-body">
+            <p>Get 50% off on premium plans! Use code: <strong>DEBAYAN50</strong></p>
+            <button class="cta-btn">Claim Offer Now</button>
+        </div>
+        <div class="popup-footer">
+            <small>Powered by DEBAYAN</small>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Popup Styles */
+    .debyan-popup-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.9);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 1001;
+        backdrop-filter: blur(5px);
+    }
+
+    .debyan-popup-content {
+        background: linear-gradient(135deg, #1a1a1a 0%, #2d0a0a 100%);
+        padding: 2rem;
+        border-radius: 15px;
+        width: 90%;
+        max-width: 500px;
+        position: relative;
+        transform: scale(0.8);
+        opacity: 0;
+        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    .popup-header {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        border-bottom: 1px solid #e5091433;
+        padding-bottom: 1rem;
+    }
+
+    .popup-body {
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .cta-btn {
+        background: linear-gradient(45deg, #e50914, #b20710);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: 600;
+        margin-top: 1rem;
+        transition: transform 0.3s;
+    }
+
+    .cta-btn:hover {
+        transform: scale(1.05);
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 1rem;
+        right: 1.5rem;
+        color: #fff;
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: color 0.3s;
+    }
+
+    .close-btn:hover {
+        color: #e50914;
+    }
+
+    .popup-footer {
+        text-align: center;
+        color: #666;
+        font-size: 0.8rem;
+    }
+
+    /* Active State */
+    .debyan-popup-overlay.active {
+        display: flex;
+    }
+
+    .debyan-popup-overlay.active .debyan-popup-content {
+        transform: scale(1);
+        opacity: 1;
+    }
+</style>
+
+<script>
+    // Add this to the existing script
+    const popup = document.getElementById('debyanPopup');
+    const closeBtn = document.querySelector('.close-btn');
+
+    // Show popup after 3 seconds
+    setTimeout(() =>
