@@ -700,4 +700,31 @@
     const closeBtn = document.querySelector('.close-btn');
 
     // Show popup after 3 seconds
-    setTimeout(() =>
+ setTimeout(() => {
+        popup.classList.add('active');
+    }, 3000);
+
+    // Close functionality
+    closeBtn.addEventListener('click', () => {
+        popup.classList.remove('active');
+    });
+
+    // Close when clicking outside
+    popup.addEventListener('click', (e) => {
+        if(e.target === popup) {
+            popup.classList.remove('active');
+        }
+    });
+
+    // Optional: Close with Escape key
+    document.addEventListener('keydown', (e) => {
+        if(e.key === 'Escape' && popup.classList.contains('active')) {
+            popup.classList.remove('active');
+        }
+    });
+</script>
+</body>
+</html>
+
+
+             
