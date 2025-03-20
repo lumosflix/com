@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - LumosFlix</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Base styles from index.html */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: white;
+        }
+
+        /* Add content-specific styles */
+        .content-section {
+            background: #1a1a1a;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 100px auto 2rem;
+            max-width: 1200px;
+            border: 1px solid #2d0a0a;
+            box-shadow: 0 0 25px rgba(229, 9, 20, 0.1);
+        }
+
+        .content-section h1 {
+            color: #e50914;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            position: relative;
+            padding-left: 1rem;
+        }
+
+        .content-section h1::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 80%;
+            background: #e50914;
+            border-radius: 2px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: #2d2d2d;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            color: #e50914;
+            margin-bottom: 1rem;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .team-member {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            border: 3px solid #e50914;
+        }
+    </style>
+</head>
+<body>
+ 
+
+    <main>
+        <div class="content-section">
+            <h1>About LumosFlix</h1>
+            <p>Your premier destination for high-quality movie streaming since 2023.</p>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <i class="fas fa-film feature-icon"></i>
+                    <h3>4K Streaming</h3>
+                    <p>Crystal-clear quality with immersive audio experience</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-globe feature-icon"></i>
+                    <h3>Global Library</h3>
+                    <p>Movies from every corner of the world</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-user-shield feature-icon"></i>
+                    <h3>Safe & Secure</h3>
+                    <p>Military-grade encryption for all transactions</p>
+                </div>
+            </div>
+
+            <h2>Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="placeholder-team1.jpg" alt="CEO">
+                    <h3>John Smith</h3>
+                    <p>CEO & Founder</p>
+               
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <!-- Same footer as index.html -->
+    </footer>
+</body>
+</html>
