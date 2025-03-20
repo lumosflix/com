@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exclusive Offer - LumosFlix</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* Global Reset & Font */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      background-color: #0a0a0a;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+    
+    /* Container for the offer page */
+    .offer-container {
+      text-align: center;
+      padding: 2rem;
+      border-radius: 15px;
+      background: linear-gradient(135deg, #1a1a1a, #2d0a0a);
+      box-shadow: 0 10px 30px rgba(229, 9, 20, 0.3);
+      animation: fadeInUp 1s ease-out;
+      max-width: 500px;
+      margin: 20px;
+    }
+    
+    /* Animated title with shimmer effect */
+    .offer-container h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(45deg, #e50914, #ff6b6b);
+      background-size: 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 2s ease-in-out infinite;
+    }
+    
+    /* Offer details styling */
+    .offer-details {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+    .offer-details span {
+      display: block;
+      margin-top: 0.5rem;
+      font-weight: 600;
+    }
+    
+    /* Pay button styling with hover effects */
+    .pay-button {
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: white;
+      background: linear-gradient(45deg, #e50914, #b20710);
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .pay-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 5px 15px rgba(229, 9, 20, 0.4);
+    }
+    
+    /* Animations */
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes shimmer {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="offer-container">
+    <h1>Exclusive Offer!</h1>
+    <div class="offer-details">
+      <p>Unlock an ad-free experience and get the latest updates first.</p>
+      <span>Only ₹49</span>
+    </div>
+    <button class="pay-button" onclick="window.location.href='https://upilinks.in/payment-link/upi383926057'">
+      Pay Now
+    </button>
+  </div>
+</body>
+</html>
