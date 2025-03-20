@@ -398,7 +398,7 @@
       opacity: 1;
     }
     
-    /* Loading Screen Styles */
+    /* Premium Loading Screen Styles */
     #loading-screen {
       position: fixed;
       top: 0;
@@ -407,36 +407,50 @@
       height: 100vh;
       background: #0a0a0a;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
       z-index: 9999;
-      transition: opacity 0.5s ease-out;
+      overflow: hidden;
     }
     .loading-logo {
-      font-size: 40px;
+      font-size: 48px;
       font-weight: bold;
-      background: linear-gradient(45deg, #e50914, #ff6b6b);
+      background: linear-gradient(45deg, #e50914, #ff6b6b, #e50914);
+      background-size: 200%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: fadeIn 1.5s ease-in-out infinite alternate;
+      animation: shimmer 2s ease-in-out infinite;
+      margin-bottom: 30px;
     }
-    .loading-spinner {
-      width: 50px;
-      height: 50px;
-      border: 5px solid rgba(229, 9, 20, 0.3);
-      border-top: 5px solid #e50914;
+    .loading-ring {
+      position: relative;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin-top: 20px;
+      background: transparent;
+      border: 5px solid rgba(229, 9, 20, 0.2);
     }
-    @keyframes spin {
+    .loading-ring::before {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      border-radius: 50%;
+      border: 5px solid transparent;
+      border-top-color: #e50914;
+      animation: rotate 1.5s linear infinite;
+    }
+    @keyframes shimmer {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes rotate {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
-    }
-    @keyframes fadeIn {
-      0% { opacity: 0.5; }
-      100% { opacity: 1; }
     }
     
     /* Responsive Styles */
@@ -466,10 +480,10 @@
   </style>
 </head>
 <body>
-  <!-- Loading Screen -->
+  <!-- Premium Loading Screen -->
   <div id="loading-screen">
     <div class="loading-logo">LumosFlix</div>
-    <div class="loading-spinner"></div>
+    <div class="loading-ring"></div>
   </div>
 
   <!-- Header -->
@@ -619,13 +633,13 @@
 
   <!-- JavaScript -->
   <script>
-    // Hide loading screen after content is loaded
+    // Hide premium loading screen after content is loaded
     document.addEventListener("DOMContentLoaded", function () {
       setTimeout(() => {
         const loader = document.getElementById("loading-screen");
         loader.style.opacity = "0";
         setTimeout(() => { loader.style.display = "none"; }, 500);
-      }, 2000); // Adjust delay as needed
+      }, 2500); // Adjust delay as needed
     });
 
     // Search Filter
@@ -682,4 +696,4 @@
     });
   </script>
 </body>
-    </html>
+</html>
