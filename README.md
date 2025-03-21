@@ -31,5 +31,5 @@ Download Our Android App:
 Download LumosFlix APK:
 https://github.com/lumosflix/com/releases/download/LumosFlix/LumosFlix.apk
 
-Feel free to share this description wherever needed!
+Feel free to share feedback!
 
