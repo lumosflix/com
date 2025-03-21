@@ -17,4 +17,4 @@ Interactive Features: Request your favorite movies, interact with an engaging in
 
 With LumosFlix, immerse yourself in a cinematic experience that combines style, security, and convenience—now available on both web and Android. Enjoy the ultimate movie streaming experience, anytime, anywhere.
 
-https://github.com/lumosflix/com/releases/tag/LumosFlix
+https://github.com/lumosflix/com/releases/download/LumosFlix/LumosFlix.apk
