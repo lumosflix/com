@@ -109,7 +109,9 @@
     }
     
     /* Main Content */
-    main {
+    /* Initially hidden until login is successful */
+    #main-page {
+      display: none;
       max-width: 1200px;
       margin: 100px auto 0;
       padding: 2rem;
@@ -443,11 +445,6 @@
       border-top-color: #e50914;
       animation: rotate 1.5s linear infinite;
     }
-    @keyframes shimmer {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
     @keyframes rotate {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
@@ -477,6 +474,73 @@
         grid-template-columns: 1fr;
       }
     }
+    
+    /* Login/Signup Modal Styles (New) */
+    .auth-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s;
+      z-index: 10000;
+    }
+    .auth-content {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d0a0a 100%);
+      padding: 2rem;
+      border-radius: 15px;
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+    .auth-content h2 {
+      color: #e50914;
+      margin-bottom: 1rem;
+    }
+    .auth-content p {
+      color: #ccc;
+      margin-bottom: 1.5rem;
+    }
+    .auth-content input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 1rem;
+      border: none;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+    .auth-content button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background: linear-gradient(45deg, #e50914, #b20710);
+      color: white;
+      font-size: 1rem;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    .auth-content button:hover {
+      background: linear-gradient(45deg, #ff6b6b, #e50914);
+    }
+    .error-message {
+      color: #ff6b6b;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+      display: none;
+    }
+    /* Show modal */
+    .auth-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
   </style>
 </head>
 <body>
@@ -484,6 +548,19 @@
   <div id="loading-screen">
     <div class="loading-logo">LumosFlix</div>
     <div class="loading-ring"></div>
+  </div>
+
+  <!-- Login/Signup Modal (New) -->
+  <div id="auth-modal" class="auth-overlay">
+    <div class="auth-content">
+      <h2>Welcome to LumosFlix</h2>
+      <p>Sign in or create an account to continue</p>
+      <input type="text" id="auth-username" placeholder="Username">
+      <input type="password" id="auth-password" placeholder="Password">
+      <p id="auth-error" class="error-message"></p>
+      <button id="login-btn">Login</button>
+      <button id="signup-btn">Sign Up</button>
+    </div>
   </div>
 
   <!-- Header -->
@@ -501,90 +578,76 @@
     <div class="powered-by">Powered by debayan</div>
   </header>
 
-  
-  <main>
+  <!-- Main Content (Home Page) -->
+  <main id="main-page">
     <section class="featured-movies">
       <h2 class="section-title">Featured Movies</h2>
       <div class="movie-grid">
 
         <!-- Main Content -->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div class="movie-card">
-                    <img src="Lucky Baskhar.jpg" alt="Deva" class="movie-poster">
-                    <div class="movie-info">
-                        <h3>test</h3>
-                        <p>Crime, Drama, Thriller • 2024</p>
-                        <a href="https://nanolinks.in/YVrfBLQ" target="_blank">
-                            <button class="download-btn">
-                                <i class="fas fa-play"></i> Watch
-                            </button>
-                        </a>
-                    </div>
+  <img src="Lucky Baskhar.jpg" alt="Deva" class="movie-poster">
+  <div class="movie-info">
+    <h3>test</h3>
+    <p>Crime, Drama, Thriller • 2024</p>
+    <a href="https://nanolinks.in/YVrfBLQ" target="_blank">
+      <button class="download-btn">
+        <i class="fas fa-play"></i> Watch
+      </button>
+    </a>
+  </div>
 </div>
 
-                <div class="movie-card">
-                    <img src="Lucky Baskhar.jpg" alt="Deva" class="movie-poster">
-                    <div class="movie-info">
-                        <h3>Lucky Baskhar</h3>
-                        <p>Crime, Drama, Thriller • 2024</p>
-                        <a href="https://nanolinks.in/YVrfBLQ" target="_blank">
-                            <button class="download-btn">
-                                <i class="fas fa-play"></i> Watch
-                            </button>
-                        </a>
-                    </div>
-                </div>
+<div class="movie-card">
+  <img src="Lucky Baskhar.jpg" alt="Deva" class="movie-poster">
+  <div class="movie-info">
+    <h3>Lucky Baskhar</h3>
+    <p>Crime, Drama, Thriller • 2024</p>
+    <a href="https://nanolinks.in/YVrfBLQ" target="_blank">
+      <button class="download-btn">
+        <i class="fas fa-play"></i> Watch
+      </button>
+    </a>
+  </div>
+</div>
         
-        <div class="movie-card">
-          <img src="Sita Ramam.jpg" alt="Sita Ramam" class="movie-poster">
-          <div class="movie-info">
-            <h3>Sita Ramam</h3>
-            <p>Action, Drama & Romance • 2022</p>
-            <a href="https://nanolinks.in/erZC5" target="_blank">
-              <button class="download-btn">
-                <i class="fas fa-play"></i> Watch
-              </button>
-            </a>
-          </div>
-        </div>
-        <div class="movie-card">
-          <img src="Deva.jpg" alt="Deva" class="movie-poster">
-          <div class="movie-info">
-            <h3>Deva</h3>
-            <p>Action, Thriller • 2025</p>
-            <a href="https://nanolinks.in/KkCfEf" target="_blank">
-              <button class="download-btn">
-                <i class="fas fa-play"></i> Watch
-              </button>
-            </a>
-          </div>
-        </div>
-        <div class="movie-card">
-          <img src="Pushpa2.jpg" alt="Pushpa 2" class="movie-poster">
-          <div class="movie-info">
-            <h3>Pushpa 2</h3>
-            <p>Action, Thriller • 2024</p>
-            <a href="https://nanolinks.in/5Ja5l2Wb" target="_blank">
-              <button class="download-btn">
-                <i class="fas fa-play"></i> Watch
-              </button>
-            </a>
-          </div>
-        </div>
+<div class="movie-card">
+  <img src="Sita Ramam.jpg" alt="Sita Ramam" class="movie-poster">
+  <div class="movie-info">
+    <h3>Sita Ramam</h3>
+    <p>Action, Drama & Romance • 2022</p>
+    <a href="https://nanolinks.in/erZC5" target="_blank">
+      <button class="download-btn">
+        <i class="fas fa-play"></i> Watch
+      </button>
+    </a>
+  </div>
+</div>
+<div class="movie-card">
+  <img src="Deva.jpg" alt="Deva" class="movie-poster">
+  <div class="movie-info">
+    <h3>Deva</h3>
+    <p>Action, Thriller • 2025</p>
+    <a href="https://nanolinks.in/KkCfEf" target="_blank">
+      <button class="download-btn">
+        <i class="fas fa-play"></i> Watch
+      </button>
+    </a>
+  </div>
+</div>
+<div class="movie-card">
+  <img src="Pushpa2.jpg" alt="Pushpa 2" class="movie-poster">
+  <div class="movie-info">
+    <h3>Pushpa 2</h3>
+    <p>Action, Thriller • 2024</p>
+    <a href="https://nanolinks.in/5Ja5l2Wb" target="_blank">
+      <button class="download-btn">
+        <i class="fas fa-play"></i> Watch
+      </button>
+    </a>
+  </div>
+</div>
       </div>
     </section>
   </main>
@@ -654,12 +717,15 @@
 
   <!-- JavaScript -->
   <script>
-    // Hide premium loading screen after content is loaded
+    // Hide premium loading screen after content is loaded, then show login modal.
     document.addEventListener("DOMContentLoaded", function () {
       setTimeout(() => {
         const loader = document.getElementById("loading-screen");
         loader.style.opacity = "0";
-        setTimeout(() => { loader.style.display = "none"; }, 500);
+        setTimeout(() => { 
+          loader.style.display = "none"; 
+          document.getElementById("auth-modal").classList.add("active");
+        }, 0);
       }, 2500); // Adjust delay as needed
     });
 
@@ -716,5 +782,54 @@
       }
     });
   </script>
+
+  <!-- Login/Signup JavaScript -->
+  <script>
+    const loginBtn = document.getElementById("login-btn");
+    const signupBtn = document.getElementById("signup-btn");
+    const errorMessage = document.getElementById("auth-error");
+    const mainPage = document.getElementById("main-page");
+
+    loginBtn.addEventListener("click", function () {
+      const username = document.getElementById("auth-username").value.trim();
+      const password = document.getElementById("auth-password").value.trim();
+
+      const storedUser = localStorage.getItem("lumosflixUser");
+
+      if (!storedUser) {
+        errorMessage.textContent = "Invalid username and password. Please sign up before logging in.";
+        errorMessage.style.display = "block";
+        return;
+      }
+
+      const userData = JSON.parse(storedUser);
+
+      if (username === userData.username && password === userData.password) {
+        errorMessage.style.display = "none";
+        alert("Login Successful!");
+        document.getElementById("auth-modal").classList.remove("active");
+        // Show main content after successful login.
+        mainPage.style.display = "block";
+      } else {
+        errorMessage.textContent = "Incorrect username or password!";
+        errorMessage.style.display = "block";
+      }
+    });
+
+    signupBtn.addEventListener("click", function () {
+      const username = document.getElementById("auth-username").value.trim();
+      const password = document.getElementById("auth-password").value.trim();
+
+      if (!username || !password) {
+        errorMessage.textContent = "Please enter a username and password to sign up.";
+        errorMessage.style.display = "block";
+        return;
+      }
+
+      localStorage.setItem("lumosflixUser", JSON.stringify({ username, password }));
+      errorMessage.style.display = "none";
+      alert("Signup Successful! You can now log in.");
+    });
+  </script>
 </body>
-                                                      </html>
+</html>
