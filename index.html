@@ -200,6 +200,23 @@
       box-shadow: 0 5px 15px rgba(229, 9, 20, 0.4);
     }
     
+    /* Logout Button */
+    .logout-btn {
+      padding: 0.8rem 1.5rem;
+      background: #e50914;
+      border: none;
+      color: white;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 2rem auto 0;
+      display: block;
+      transition: background 0.3s;
+    }
+    .logout-btn:hover {
+      background: #b20710;
+    }
+    
     /* Footer */
     footer {
       background: #000;
@@ -475,7 +492,7 @@
       }
     }
     
-    /* Login/Signup Modal Styles (New) */
+    /* Login/Signup Modal Styles */
     .auth-overlay {
       position: fixed;
       top: 0;
@@ -550,7 +567,7 @@
     <div class="loading-ring"></div>
   </div>
 
-  <!-- Login/Signup Modal (New) -->
+  <!-- Login/Signup Modal -->
   <div id="auth-modal" class="auth-overlay">
     <div class="auth-content">
       <h2>Welcome to LumosFlix</h2>
@@ -583,73 +600,71 @@
     <section class="featured-movies">
       <h2 class="section-title">Featured Movies</h2>
       <div class="movie-grid">
-
-        <!-- Main Content -->
-
-<div class="movie-card">
-  <img src="Lucky Baskhar.jpg" alt="Deva" class="movie-poster">
-  <div class="movie-info">
-    <h3>test</h3>
-    <p>Crime, Drama, Thriller • 2024</p>
-    <a href="https://nanolinks.in/YVrfBLQ" target="_blank">
-      <button class="download-btn">
-        <i class="fas fa-play"></i> Watch
-      </button>
-    </a>
-  </div>
-</div>
-
-<div class="movie-card">
-  <img src="Lucky Baskhar.jpg" alt="Deva" class="movie-poster">
-  <div class="movie-info">
-    <h3>Lucky Baskhar</h3>
-    <p>Crime, Drama, Thriller • 2024</p>
-    <a href="https://nanolinks.in/YVrfBLQ" target="_blank">
-      <button class="download-btn">
-        <i class="fas fa-play"></i> Watch
-      </button>
-    </a>
-  </div>
-</div>
-        
-<div class="movie-card">
-  <img src="Sita Ramam.jpg" alt="Sita Ramam" class="movie-poster">
-  <div class="movie-info">
-    <h3>Sita Ramam</h3>
-    <p>Action, Drama & Romance • 2022</p>
-    <a href="https://nanolinks.in/erZC5" target="_blank">
-      <button class="download-btn">
-        <i class="fas fa-play"></i> Watch
-      </button>
-    </a>
-  </div>
-</div>
-<div class="movie-card">
-  <img src="Deva.jpg" alt="Deva" class="movie-poster">
-  <div class="movie-info">
-    <h3>Deva</h3>
-    <p>Action, Thriller • 2025</p>
-    <a href="https://nanolinks.in/KkCfEf" target="_blank">
-      <button class="download-btn">
-        <i class="fas fa-play"></i> Watch
-      </button>
-    </a>
-  </div>
-</div>
-<div class="movie-card">
-  <img src="Pushpa2.jpg" alt="Pushpa 2" class="movie-poster">
-  <div class="movie-info">
-    <h3>Pushpa 2</h3>
-    <p>Action, Thriller • 2024</p>
-    <a href="https://nanolinks.in/5Ja5l2Wb" target="_blank">
-      <button class="download-btn">
-        <i class="fas fa-play"></i> Watch
-      </button>
-    </a>
-  </div>
-</div>
+        <!-- Example Movie Cards -->
+        <div class="movie-card">
+          <img src="Lucky Baskhar.jpg" alt="Deva" class="movie-poster">
+          <div class="movie-info">
+            <h3>test</h3>
+            <p>Crime, Drama, Thriller • 2024</p>
+            <a href="https://nanolinks.in/YVrfBLQ" target="_blank">
+              <button class="download-btn">
+                <i class="fas fa-play"></i> Watch
+              </button>
+            </a>
+          </div>
+        </div>
+        <div class="movie-card">
+          <img src="Lucky Baskhar.jpg" alt="Deva" class="movie-poster">
+          <div class="movie-info">
+            <h3>Lucky Baskhar</h3>
+            <p>Crime, Drama, Thriller • 2024</p>
+            <a href="https://nanolinks.in/YVrfBLQ" target="_blank">
+              <button class="download-btn">
+                <i class="fas fa-play"></i> Watch
+              </button>
+            </a>
+          </div>
+        </div>
+        <div class="movie-card">
+          <img src="Sita Ramam.jpg" alt="Sita Ramam" class="movie-poster">
+          <div class="movie-info">
+            <h3>Sita Ramam</h3>
+            <p>Action, Drama & Romance • 2022</p>
+            <a href="https://nanolinks.in/erZC5" target="_blank">
+              <button class="download-btn">
+                <i class="fas fa-play"></i> Watch
+              </button>
+            </a>
+          </div>
+        </div>
+        <div class="movie-card">
+          <img src="Deva.jpg" alt="Deva" class="movie-poster">
+          <div class="movie-info">
+            <h3>Deva</h3>
+            <p>Action, Thriller • 2025</p>
+            <a href="https://nanolinks.in/KkCfEf" target="_blank">
+              <button class="download-btn">
+                <i class="fas fa-play"></i> Watch
+              </button>
+            </a>
+          </div>
+        </div>
+        <div class="movie-card">
+          <img src="Pushpa2.jpg" alt="Pushpa 2" class="movie-poster">
+          <div class="movie-info">
+            <h3>Pushpa 2</h3>
+            <p>Action, Thriller • 2024</p>
+            <a href="https://nanolinks.in/5Ja5l2Wb" target="_blank">
+              <button class="download-btn">
+                <i class="fas fa-play"></i> Watch
+              </button>
+            </a>
+          </div>
+        </div>
       </div>
     </section>
+    <!-- Logout Button -->
+    <button id="logout-btn" class="logout-btn">Logout</button>
   </main>
 
   <!-- Footer -->
@@ -705,9 +720,7 @@
       </div>
       <div class="popup-body">
         <p>Get 50% off on premium plans!</p>
-        <!-- Version 1: With onclick redirection -->
         <button class="cta-btn" onclick="window.location.href='offer.html'">Claim Offer Now</button>
-       
       </div>
       <div class="popup-footer">
         <small>Powered by DEBAYAN</small>
@@ -717,14 +730,26 @@
 
   <!-- JavaScript -->
   <script>
-    // Hide premium loading screen after content is loaded, then show login modal.
+    // Check if the user is already logged in on page load
     document.addEventListener("DOMContentLoaded", function () {
+      const loader = document.getElementById("loading-screen");
+      const authModal = document.getElementById("auth-modal");
+      const mainPage = document.getElementById("main-page");
+      
+      const isLoggedIn = localStorage.getItem("lumosflixUserLoggedIn");
+      
       setTimeout(() => {
-        const loader = document.getElementById("loading-screen");
         loader.style.opacity = "0";
         setTimeout(() => { 
           loader.style.display = "none"; 
-          document.getElementById("auth-modal").classList.add("active");
+          
+          if (isLoggedIn === "true") {
+            // User is already logged in; show main content
+            mainPage.style.display = "block";
+          } else {
+            // Show login modal for first time users or if not logged in
+            authModal.classList.add("active");
+          }
         }, 500);
       }, 2500); // Adjust delay as needed
     });
@@ -781,10 +806,8 @@
         popup.classList.remove('active');
       }
     });
-  </script>
 
-  <!-- Login/Signup JavaScript -->
-  <script>
+    // Login/Signup Functionality
     const loginBtn = document.getElementById("login-btn");
     const signupBtn = document.getElementById("signup-btn");
     const errorMessage = document.getElementById("auth-error");
@@ -807,8 +830,11 @@
       if (username === userData.username && password === userData.password) {
         errorMessage.style.display = "none";
         alert("Login Successful!");
+        
+        // Set login flag so that the login modal is not shown on subsequent visits
+        localStorage.setItem("lumosflixUserLoggedIn", "true");
+        
         document.getElementById("auth-modal").classList.remove("active");
-        // Show main content after successful login.
         mainPage.style.display = "block";
       } else {
         errorMessage.textContent = "Incorrect username or password!";
@@ -827,9 +853,25 @@
       }
 
       localStorage.setItem("lumosflixUser", JSON.stringify({ username, password }));
+      // Automatically log the user in after signup
+      localStorage.setItem("lumosflixUserLoggedIn", "true");
+      
       errorMessage.style.display = "none";
-      alert("Signup Successful! You can now log in.");
+      alert("Signup Successful! You are now logged in.");
+      document.getElementById("auth-modal").classList.remove("active");
+      mainPage.style.display = "block";
+    });
+
+    // Logout Functionality
+    const logoutBtn = document.getElementById("logout-btn");
+    logoutBtn.addEventListener("click", function(){
+      // Remove the login flag so the login modal will be shown next time
+      localStorage.removeItem("lumosflixUserLoggedIn");
+      // Optionally, remove stored user credentials if you want a complete logout:
+      // localStorage.removeItem("lumosflixUser");
+      location.reload();
     });
   </script>
 </body>
 </html>
+    
