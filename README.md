@@ -1,6 +1,7 @@
-====================================== LUMOSFLIX
+==========================================================================================================================
+                                                   Welcome to LumosFlix
 
-Welcome to LumosFlix
+Powered by debayan
 
 LumosFlix is your premium gateway to a world of entertainment—offering a sleek, user-friendly experience for movie lovers on both the web and Android platforms. With its modern aesthetics and powerful functionality, LumosFlix allows you to browse and stream an extensive collection of films ranging from gripping thrillers and dramatic sagas to action-packed blockbusters.
 
