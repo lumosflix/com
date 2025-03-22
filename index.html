@@ -2,199 +2,885 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Premium Firebase Chat</title>
-  <!-- Import a nice Google Font -->
-  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LumosFlix - Premium Movie Downloads</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     /* Global Styles */
-    body {
+    * {
       margin: 0;
       padding: 0;
-      font-family: 'Roboto', sans-serif;
-      background: linear-gradient(135deg, #667eea, #764ba2);
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
     }
-    /* Chat Container */
-    #chat-container {
+    body {
+      background-color: #000000;
+      color: white;
+    }
+    
+    @keyframes bounceFadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      60% {
+        opacity: 1;
+        transform: translateY(-15px);
+      }
+      80% {
+        transform: translateY(8px);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+    
+    /* Header */
+    header {
+      background: linear-gradient(135deg, #000000 0%, #2d0a0a 100%);
+      padding: 1rem;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 15px rgba(229, 9, 20, 0.1);
+    }
+    .powered-by {
+      position: absolute;
+      bottom: 9px;
+      left: 21%;
+      transform: translateX(-50%);
+      font-size: 0.7rem;
+      color: #666;
+      white-space: nowrap;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      background: linear-gradient(45deg, #e50914, #ff6b6b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      position: relative;
+      padding: 5px 0;
+      transition: 0.3s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #e50914;
+      transition: 0.3s;
+    }
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    .search-bar {
+      padding: 0.8rem 1.5rem;
+      border-radius: 30px;
+      border: none;
       background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      border-radius: 10px;
-      width: 90%;
-      max-width: 600px;
-      padding: 20px;
-      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-      backdrop-filter: blur(8px);
-      animation: fadeIn 1s ease-in-out;
+      color: white;
+      width: 250px;
+      transition: 0.3s;
     }
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .search-bar:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 15px rgba(229, 9, 20, 0.2);
     }
-    @keyframes slideIn {
-      from { opacity: 0; transform: translateX(-20px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-    /* Username Section */
-    #username-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      animation: fadeIn 1s ease-in-out;
-      margin-bottom: 20px;
-    }
-    #username-container input {
-      width: 80%;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      margin-bottom: 10px;
-    }
-    #username-container button {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      background: #764ba2;
-      color: #fff;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    #username-container button:hover {
-      background: #667eea;
-    }
-    /* Chat Room Section */
-    #chat-room {
+    
+    /* Main Content */
+    /* Initially hidden until login is successful */
+    #main-page {
       display: none;
-      animation: fadeIn 1s ease-in-out;
+      max-width: 1200px;
+      margin: 100px auto 0;
+      padding: 2rem;
+      animation: bounceFadeIn 0.8s ease-out;
+      animation-fill-mode: backwards;
     }
-    #messages {
-      list-style: none;
-      padding: 10px;
-      max-height: 300px;
-      overflow-y: auto;
-      background: rgba(0, 0, 0, 0.2);
-      border-radius: 5px;
-      margin-bottom: 15px;
+    .section-title {
+      font-size: 24px;
+      margin-bottom: 2rem;
+      position: relative;
+      padding-left: 1rem;
     }
-    #messages li {
-      margin-bottom: 10px;
-      padding: 8px;
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 5px;
-      animation: slideIn 0.5s ease;
+    .section-title::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 4px;
+      height: 80%;
+      background: #e50914;
+      border-radius: 2px;
     }
-    #message-form {
-      display: flex;
-      gap: 10px;
+    .movie-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 2rem;
+      margin-top: 1rem;
     }
-    #message-form input {
-      flex: 1;
-      padding: 10px;
+    .movie-card {
+      background: #1a1a1a;
+      border-radius: 15px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+    }
+    .movie-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 25px rgba(229, 9, 20, 0.3);
+    }
+    .movie-poster {
+      width: 100%;
+      height: 330px;
+      object-fit: cover;
+      transition: 0.3s;
+    }
+    .movie-card:hover .movie-poster {
+      opacity: 0.3;
+    }
+    .movie-info {
+      padding: 1.5rem;
+      position: relative;
+    }
+    .movie-info h3 {
+      font-size: 18px;
+      margin-bottom: 0.5rem;
+    }
+    .movie-info p {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 1rem;
+    }
+    .download-btn {
+      background: linear-gradient(45deg, #e50914, #b20710);
+      color: white;
       border: none;
-      border-radius: 5px;
-    }
-    #message-form button {
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      background: #667eea;
-      color: #fff;
-      font-weight: bold;
+      padding: 0.8rem 1.5rem;
+      border-radius: 30px;
       cursor: pointer;
-      transition: background 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 500;
+      transition: 0.3s;
+      opacity: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
-    #message-form button:hover {
-      background: #764ba2;
+    .movie-card:hover .download-btn {
+      opacity: 1;
+    }
+    .download-btn:hover {
+      transform: translate(-50%, -50%) scale(1.05);
+      box-shadow: 0 5px 15px rgba(229, 9, 20, 0.4);
+    }
+    
+    /* Logout Button */
+    .logout-btn {
+      padding: 0.8rem 1.5rem;
+      background: #e50914;
+      border: none;
+      color: white;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 2rem auto 0;
+      display: block;
+      transition: background 0.3s;
+    }
+    .logout-btn:hover {
+      background: #b20710;
+    }
+    
+    /* Footer */
+    footer {
+      background: #000;
+      padding: 4rem 2rem 2rem;
+      margin-top: 5rem;
+      animation: bounceFadeIn 0.8s ease-out 0.3s;
+      animation-fill-mode: backwards;
+    }
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 3rem;
+      border-bottom: 1px solid #222;
+      padding-bottom: 3rem;
+    }
+    .footer-section h3 {
+      color: #e50914;
+      margin-bottom: 1.5rem;
+      font-size: 18px;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+    .footer-section h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: #e50914;
+    }
+    .footer-section ul {
+      list-style: none;
+    }
+    .footer-section ul li {
+      margin-bottom: 0.8rem;
+    }
+    .footer-section a {
+      color: #ccc;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .footer-section a:hover {
+      color: #e50914;
+      padding-left: 5px;
+    }
+    .social-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .social-links a {
+      font-size: 1.5rem;
+      color: #ccc;
+      transition: 0.3s;
+    }
+    .social-links a:hover {
+      color: #e50914;
+      transform: translateY(-3px);
+    }
+    .copyright {
+      text-align: center;
+      padding-top: 2rem;
+      color: #666;
+      font-size: 14px;
+    }
+    
+    /* Floating Request Tab */
+    .floating-request {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      animation: bounceFadeIn 0.8s ease-out 0.5s;
+      animation-fill-mode: backwards;
+      perspective: 1000px;
+    }
+    .request-btn {
+      background: #e50914;
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      border-radius: 30px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(229, 9, 20, 0.3);
+      transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow: hidden;
+      position: relative;
+      will-change: transform, opacity;
+    }
+    .request-btn i {
+      font-size: 1.2rem;
+      transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate3d(-50%, -50%, 0);
+      opacity: 0;
+    }
+    .request-btn .request-text {
+      transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .request-btn.shrink {
+      transform: translate3d(0, 0, 0) scale(0.8);
+      width: 65px;
+      height: 65px;
+      padding: 0;
+      border-radius: 50%;
+    }
+    .request-btn.shrink i {
+      opacity: 1;
+      transform: translate3d(-50%, -50%, 0) scale(1.2);
+    }
+    .request-btn.shrink .request-text {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    .request-btn:hover {
+      transform: scale(1.05) translate3d(0, 0, 0);
+    }
+    
+    /* Popup Styles */
+    .debyan-popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1001;
+      backdrop-filter: blur(5px);
+    }
+    .debyan-popup-content {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d0a0a 100%);
+      padding: 2rem;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 500px;
+      position: relative;
+      transform: scale(0.8);
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+    .popup-header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid #e5091433;
+      padding-bottom: 1rem;
+    }
+    .popup-body {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .cta-btn {
+      background: linear-gradient(45deg, #e50914, #b20710);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      margin-top: 1rem;
+      transition: transform 0.3s;
+    }
+    .cta-btn:hover {
+      transform: scale(1.05);
+    }
+    .close-btn {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      color: #fff;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .close-btn:hover {
+      color: #e50914;
+    }
+    .popup-footer {
+      text-align: center;
+      color: #666;
+      font-size: 0.8rem;
+    }
+    .debyan-popup-overlay.active {
+      display: flex;
+    }
+    .debyan-popup-overlay.active .debyan-popup-content {
+      transform: scale(1);
+      opacity: 1;
+    }
+    
+    /* Premium Loading Screen Styles */
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: #000000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 9999;
+      overflow: hidden;
+    }
+    .loading-logo {
+      font-size: 48px;
+      font-weight: bold;
+      background: linear-gradient(45deg, #e50914, #ff6b6b, #e50914);
+      background-size: 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 2s ease-in-out infinite;
+      margin-bottom: 30px;
+    }
+    .loading-ring {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: transparent;
+      border: 5px solid rgba(229, 9, 20, 0.2);
+    }
+    .loading-ring::before {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      border-radius: 50%;
+      border: 5px solid transparent;
+      border-top-color: #e50914;
+      animation: rotate 1.5s linear infinite;
+    }
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+      .search-bar {
+        width: 150px;
+      }
+      .movie-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .download-btn {
+        padding: 0.6rem 1rem;
+        font-size: 14px;
+      }
+    }
+    @media (max-width: 480px) {
+      .movie-grid {
+        grid-template-columns: 1fr;
+      }
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    /* Login/Signup Modal Styles */
+    .auth-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.9);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease, visibility 0.5s;
+      z-index: 10000;
+    }
+    .auth-content {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d0a0a 100%);
+      padding: 2rem;
+      border-radius: 15px;
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+    .auth-content h2 {
+      color: #e50914;
+      margin-bottom: 1rem;
+    }
+    .auth-content p {
+      color: #ccc;
+      margin-bottom: 1.5rem;
+    }
+    .auth-content input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 1rem;
+      border: none;
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+    }
+    .auth-content button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background: linear-gradient(45deg, #e50914, #b20710);
+      color: white;
+      font-size: 1rem;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+    .auth-content button:hover {
+      background: linear-gradient(45deg, #ff6b6b, #e50914);
+    }
+    .error-message {
+      color: #ff6b6b;
+      font-size: 0.9rem;
+      margin-bottom: 10px;
+      display: none;
+    }
+    /* Show modal */
+    .auth-overlay.active {
+      opacity: 1;
+      visibility: visible;
     }
   </style>
 </head>
 <body>
-  <div id="chat-container">
-    <!-- Username Entry -->
-    <div id="username-container">
-      <input type="text" id="username" placeholder="Enter username" />
-      <button id="enter-chat">Enter Chat</button>
-    </div>
-    <!-- Chat Room -->
-    <div id="chat-room">
-      <ul id="messages"></ul>
-      <form id="message-form">
-        <input id="messageInput" type="text" placeholder="Type a message" autocomplete="off" />
-        <button type="submit">Send</button>
-      </form>
+  <!-- Premium Loading Screen -->
+  <div id="loading-screen">
+    <div class="loading-logo">LumosFlix</div>
+    <div class="loading-ring"></div>
+  </div>
+
+  <!-- Login/Signup Modal -->
+  <div id="auth-modal" class="auth-overlay">
+    <div class="auth-content">
+      <h2>Welcome to LumosFlix</h2>
+      <p>Sign in or create an account to continue</p>
+      <input type="text" id="auth-username" placeholder="Username">
+      <input type="password" id="auth-password" placeholder="Password">
+      <p id="auth-error" class="error-message"></p>
+      <button id="login-btn">Login</button>
+      <button id="signup-btn">Sign Up</button>
     </div>
   </div>
 
-  <!-- Firebase and Chat Functionality using ES Modules -->
-  <script type="module">
-    // Import Firebase modules from CDN
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-    import { getAnalytics, isSupported } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js";
-    import { getDatabase, ref, push, onChildAdded } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
-    
-    // Firebase configuration
-    const firebaseConfig = {
-      apiKey: "AIzaSyDOvrAO3welWZcmPWO0a79ozOilId01DSA",
-      authDomain: "chatting-a239a.firebaseapp.com",
-      projectId: "chatting-a239a",
-      storageBucket: "chatting-a239a.firebasestorage.app",
-      messagingSenderId: "691332130981",
-      appId: "1:691332130981:web:cdd1537f135e485e50454c",
-      measurementId: "G-0CZYSVJ13E"
-    };
-    
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    
-    // Conditionally initialize Analytics (may not be supported in all environments)
-    let analytics;
-    isSupported().then((supported) => {
-      if (supported) {
-        analytics = getAnalytics(app);
+  <!-- Header -->
+  <header>
+    <nav>
+      <div class="logo">LumosFlix</div>
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#movies">Movies</a>
+        <a href="#genres">Genres</a>
+        <a href="#latest">Latest</a>
+      </div>
+      <input type="text" class="search-bar" placeholder="Search movies...">
+    </nav>
+    <div class="powered-by">Powered by debayan</div>
+  </header>
+
+  <!-- Main Content (Home Page) -->
+  <main id="main-page">
+    <section class="featured-movies">
+      <h2 class="section-title">Featured Movies</h2>
+      <div class="movie-grid">
+        <!-- Movie Cards -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        <div class="movie-card">
+          <img src=" thumbnail/Lucky Baskhar.jpg" alt="Deva" class="movie-poster">
+          <div class="movie-info">
+            <h3>Lucky Baskhar</h3>
+            <p>Crime, Drama, Thriller • 2024</p>
+            <a href="https://nanolinks.in/YVrfBLQ" target="_blank">
+              <button class="download-btn">
+                <i class="fas fa-play"></i> Watch
+              </button>
+            </a>
+          </div>
+        </div>        
+       <div class="movie-card">
+          <img src="thumbnail/Sita Ramam.jpg" alt="Sita Ramam" class="movie-poster">
+          <div class="movie-info">
+            <h3>Sita Ramam</h3>
+            <p>Action, Drama & Romance • 2022</p>
+            <a href="https://nanolinks.in/erZC5" target="_blank">
+              <button class="download-btn">
+                <i class="fas fa-play"></i> Watch
+              </button>
+            </a>
+          </div>
+        </div>
+        <div class="movie-card">
+          <img src="thumbnail/Deva.jpg" alt="Deva" class="movie-poster">
+          <div class="movie-info">
+            <h3>Deva</h3>
+            <p>Action, Thriller • 2025</p>
+            <a href="https://nanolinks.in/KkCfEf" target="_blank">
+              <button class="download-btn">
+                <i class="fas fa-play"></i> Watch
+              </button>
+            </a>
+          </div>
+        </div>
+        <div class="movie-card">
+          <img src="thumbnail/Pushpa2.jpg" alt="Pushpa 2" class="movie-poster">
+          <div class="movie-info">
+            <h3>Pushpa 2</h3>
+            <p>Action, Thriller • 2024</p>
+            <a href="https://nanolinks.in/5Ja5l2Wb" target="_blank">
+              <button class="download-btn">
+                <i class="fas fa-play"></i> Watch
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Logout Button -->
+    <button id="logout-btn" class="logout-btn">Logout</button>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>LumosFlix</h3>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="careers.html">Careers</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="#">Terms of Service</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Content Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Connect</h3>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>&copy; 2025 LumosFlix. Premium Entertainment.</p>
+    </div>
+  </footer>
+
+  <!-- Floating Request Tab -->
+  <div class="floating-request">
+    <a href="requests.html" style="text-decoration: none;">
+      <button class="request-btn">
+        <i class="fas fa-film"></i>
+        <span class="request-text">Request Movie</span>
+      </button>
+    </a>
+  </div>
+
+  <!-- Popup Overlay -->
+  <div class="debyan-popup-overlay" id="debyanPopup">
+    <div class="debyan-popup-content">
+      <span class="close-btn">&times;</span>
+      <div class="popup-header">
+        <h3>🎉 Exclusive Offer!</h3>
+      </div>
+      <div class="popup-body">
+        <p>Get 50% off on premium plans!</p>
+        <button class="cta-btn" onclick="window.location.href='offer.html'">Claim Offer Now</button>
+      </div>
+      <div class="popup-footer">
+        <small>Powered by DEBAYAN</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript -->
+  <script>
+    // Check if the user is already logged in on page load
+    document.addEventListener("DOMContentLoaded", function () {
+      const loader = document.getElementById("loading-screen");
+      const authModal = document.getElementById("auth-modal");
+      const mainPage = document.getElementById("main-page");
+      
+      const isLoggedIn = localStorage.getItem("lumosflixUserLoggedIn");
+      
+      setTimeout(() => {
+        loader.style.opacity = "0";
+        setTimeout(() => { 
+          loader.style.display = "none"; 
+          
+          if (isLoggedIn === "true") {
+            // User is already logged in; show main content
+            mainPage.style.display = "block";
+          } else {
+            // Show login modal for first time users or if not logged in
+            authModal.classList.add("active");
+          }
+        }, 0);
+      }, 2500); // Adjust delay as needed
+    });
+
+    // Search Filter
+    const searchBar = document.querySelector('.search-bar');
+    const movieCards = document.querySelectorAll('.movie-card');
+    searchBar.addEventListener('input', function(e) {
+      const searchTerm = e.target.value.trim().toLowerCase();
+      movieCards.forEach(card => {
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        card.style.display = title.includes(searchTerm) ? 'block' : 'none';
+      });
+    });
+
+    // Floating Request Button Swipe Behavior
+    const requestBtn = document.querySelector('.request-btn');
+    let touchStartY = 0;
+    const swipeThreshold = 30;
+    let animationFrame;
+    document.addEventListener('touchstart', e => {
+      touchStartY = e.touches[0].clientY;
+      cancelAnimationFrame(animationFrame);
+    }, { passive: true });
+    document.addEventListener('touchend', e => {
+      const touchEndY = e.changedTouches[0].clientY;
+      const deltaY = touchEndY - touchStartY;
+      animationFrame = requestAnimationFrame(() => {
+        if (Math.abs(deltaY) > swipeThreshold) {
+          requestBtn.classList.toggle('shrink', deltaY < 0);
+        }
+      });
+    }, { passive: true });
+    requestBtn.addEventListener('transitionend', () => {
+      requestBtn.style.willChange = 'auto';
+    });
+
+    // Popup Overlay Functionality
+    const popup = document.getElementById('debyanPopup');
+    const closeBtn = document.querySelector('.close-btn');
+    setTimeout(() => {
+      popup.classList.add('active');
+    }, 3000);
+    closeBtn.addEventListener('click', () => {
+      popup.classList.remove('active');
+    });
+    popup.addEventListener('click', (e) => {
+      if(e.target === popup) {
+        popup.classList.remove('active');
       }
     });
-    
-    // Initialize the Realtime Database
-    const database = getDatabase(app);
-    
-    let username = "";
-    
-    // Handle username submission
-    document.getElementById("enter-chat").addEventListener("click", () => {
-      username = document.getElementById("username").value.trim();
-      if (username) {
-        document.getElementById("username-container").style.display = "none";
-        document.getElementById("chat-room").style.display = "block";
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape' && popup.classList.contains('active')) {
+        popup.classList.remove('active');
       }
     });
-    
-    // Handle sending messages
-    document.getElementById("message-form").addEventListener("submit", (e) => {
-      e.preventDefault();
-      const messageInput = document.getElementById("messageInput");
-      if (messageInput.value.trim()) {
-        const msgObj = {
-          username: username,
-          text: messageInput.value,
-          timestamp: Date.now()
-        };
-        push(ref(database, "messages"), msgObj);
-        messageInput.value = "";
+
+    // Login/Signup Functionality
+    const loginBtn = document.getElementById("login-btn");
+    const signupBtn = document.getElementById("signup-btn");
+    const errorMessage = document.getElementById("auth-error");
+    const mainPage = document.getElementById("main-page");
+
+    loginBtn.addEventListener("click", function () {
+      const username = document.getElementById("auth-username").value.trim();
+      const password = document.getElementById("auth-password").value.trim();
+
+      const storedUser = localStorage.getItem("lumosflixUser");
+
+      if (!storedUser) {
+        errorMessage.textContent = "Invalid username and password. Please sign up before logging in.";
+        errorMessage.style.display = "block";
+        return;
+      }
+
+      const userData = JSON.parse(storedUser);
+
+      if (username === userData.username && password === userData.password) {
+        errorMessage.style.display = "none";
+        alert("Login Successful!");
+        
+        // Set login flag so that the login modal is not shown on subsequent visits
+        localStorage.setItem("lumosflixUserLoggedIn", "true");
+        
+        document.getElementById("auth-modal").classList.remove("active");
+        mainPage.style.display = "block";
+      } else {
+        errorMessage.textContent = "Incorrect username or password!";
+        errorMessage.style.display = "block";
       }
     });
-    
-    // Listen for new messages and animate their appearance
-    onChildAdded(ref(database, "messages"), (snapshot) => {
-      const msg = snapshot.val();
-      const li = document.createElement("li");
-      li.textContent = `${msg.username}: ${msg.text}`;
-      document.getElementById("messages").appendChild(li);
+
+    signupBtn.addEventListener("click", function () {
+      const username = document.getElementById("auth-username").value.trim();
+      const password = document.getElementById("auth-password").value.trim();
+
+      if (!username || !password) {
+        errorMessage.textContent = "Please enter a username and password to sign up.";
+        errorMessage.style.display = "block";
+        return;
+      }
+
+      localStorage.setItem("lumosflixUser", JSON.stringify({ username, password }));
+      // Automatically log the user in after signup
+      localStorage.setItem("lumosflixUserLoggedIn", "true");
+      
+      errorMessage.style.display = "none";
+      alert("Signup Successful! You are now logged in.");
+      document.getElementById("auth-modal").classList.remove("active");
+      mainPage.style.display = "block";
+    });
+
+    // Logout Functionality
+    const logoutBtn = document.getElementById("logout-btn");
+    logoutBtn.addEventListener("click", function(){
+      // Remove the login flag so the login modal will be shown next time
+      localStorage.removeItem("lumosflixUserLoggedIn");
+      // Optionally, remove stored user credentials if you want a complete logout:
+      // localStorage.removeItem("lumosflixUser");
+      location.reload();
     });
   </script>
 </body>
-  </html>
+</html>
+    
